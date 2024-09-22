@@ -1,0 +1,151 @@
+/*Style for the site*/
+h1 {
+	text-align: center;
+	font-family: 'Press Start 2P', cursive;
+	color: white;
+	border: thick black ridge;
+	padding: 20px;
+	background-color: rgb(102, 102, 102);
+}
+body {
+	background-color: rgb(69,69,69);
+}
+h2 {
+	color: white;
+	font-family: 'Press Start 2P', cursive;
+	text-decoration: underline;
+}
+h6 {
+	font-size: 10px;
+	text-align: center;
+	font-family: 'Press Start 2P', cursive;
+	color: white;
+}
+main {
+	display: flex;
+	justify-content: space-evenly;
+}
+.battle-grid { 
+	display: grid;
+	grid-template-columns: repeat(11, auto);
+	border: black ridge;
+	margin-top: 50px;
+}
+.grid-item {
+	background-color: rgb(0, 119, 190);
+	border: black thin outset;
+	padding: 15px;
+}
+.grid-item:hover {
+	-moz-box-shadow:    inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow:         inset 0 0 10px #000000;
+}
+
+.grid-item:active {
+	-moz-box-shadow:    inset 0 0 10px #ffffff;
+    -webkit-box-shadow: inset 0 0 10px #ffffff;
+    box-shadow:         inset 0 0 10px #ffffff;
+}
+
+/*.player2-battle-grid {
+	display: grid;
+	grid-template-columns: repeat(11, auto);
+	border: black ridge;
+	margin-top: 50px;
+}
+*/.asethics {
+	padding: 15px;
+	text-align: center;
+	font-family: 'Press Start 2P', cursive;
+	background-color: rgb(102, 102, 102);
+}
+
+#p1Header {
+	margin-left: 100px;
+}
+
+#p2Header {
+	margin-left: 100px;
+}
+
+#battleReport {
+	font-size: 20px;
+	margin-top: 100px;
+}
+
+#p1BattleReportHeading {
+	text-decoration: underline;
+	margin-top: 60px;
+}
+#p2BattleReportHeading {
+	text-decoration: underline;
+	margin-top: 90px;
+}
+
+.startGameButtonStyle, .restartButtonStyle {
+font-size: 10px; 
+line-height: 10px; 
+padding: 12px; 
+font-family: 'Press Start 2P', cursive; 
+background-image: linear-gradient(to right, rgb(28, 110, 164) 0%, rgb(35, 136, 203) 50%, rgb(20, 78, 117) 100%); 
+box-shadow: rgb(0, 0, 0) 5px 5px 25px 5px; 
+border: 1px solid rgb(28, 110, 164); 
+display: inline-block;
+margin-top: 50px;
+margin-left: 50px  
+}
+
+.startGameButtonStyle:hover, .restartButtonStyle:hover {
+background: #1C6EA4; 
+}
+
+.startGameButtonStyle:active, .restartButtonStyle:active {
+background: #144E75;
+}
+
+#instructions {
+	display: inline-block;
+	margin-top: 45px;
+	margin-left: 30px;
+	text-align: left;
+	font-size: 8px;
+	font-family: 'Press Start 2P', cursive;
+	color: white;
+	text-decoration: underline;
+	padding: 10px;
+}
+
+#instructions:hover {
+	cursor: pointer;
+	color: black;
+	text-decoration: underline;
+}
+
+.grid-item-submarine {
+	background-color: yellow;
+}
+
+.grid-item-destroyer {
+	background-color: orange;
+}
+.grid-item-battleship {
+	background-color: purple;
+}
+.grid-item-airCraft {
+	background-color: pink;
+}
+.grid-item-cruiser {
+	background-color: coral;
+}
+
+
+/*Styles for hits and misses*/
+
+.hit {
+	background-color: rgb(211, 33,45);
+}
+
+.miss {
+	background-color: green;
+}
