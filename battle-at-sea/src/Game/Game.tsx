@@ -2,6 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components'
 import Board from '../Boad/Board';
+import Status from "../Status/Status";
 
 const Game: React.FC = () => {
   return (
@@ -9,7 +10,8 @@ const Game: React.FC = () => {
       <GlobalStyles />
       <Heading>Battle-At-Sea</Heading>
       <Main>
-        <Board playerNumber="1"/>  
+        <Board playerNumber="1"/>
+        <Status />  
         <Board playerNumber="2"/>    
       </Main>
     </div>
