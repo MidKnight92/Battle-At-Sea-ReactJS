@@ -10,7 +10,7 @@ const Board: React.FC<BoardProps> = ({playerNumber}) => {
 		<div className="Player-1">
 			<PlayerHeader>Player {playerNumber} Fleet</PlayerHeader>
 			<BattleGrid>
-				<div className="asethics">A</div>
+				<Letter className="asethics">A</Letter>
 				<div className="grid-item" data-player='p1' data-square="0-0"></div>
 				<div className="grid-item" data-player='p1' data-square="0-1"></div>
 				<div className="grid-item" data-player='p1' data-square="0-2"></div>
@@ -21,7 +21,7 @@ const Board: React.FC<BoardProps> = ({playerNumber}) => {
 				<div className="grid-item" data-player='p1' data-square="0-7"></div>
 				<div className="grid-item" data-player='p1' data-square="0-8"></div>
 				<div className="grid-item" data-player='p1' data-square="0-9"></div>
-				<div className="asethics">B</div> 
+				<Letter>B</Letter> 
 				<div className="grid-item" data-player='p1' data-square="1-0"></div>
 				<div className="grid-item" data-player='p1' data-square="1-1"></div>
 				<div className="grid-item" data-player='p1' data-square="1-2"></div>
@@ -32,7 +32,7 @@ const Board: React.FC<BoardProps> = ({playerNumber}) => {
 				<div className="grid-item" data-player='p1' data-square="1-7"></div>
 				<div className="grid-item" data-player='p1' data-square="1-8"></div>
 				<div className="grid-item" data-player='p1' data-square="1-9"></div>
-				<div className="asethics">C</div>
+				<Letter>C</Letter>
 				<div className="grid-item" data-player='p1' data-square="2-0"></div>
 				<div className="grid-item" data-player='p1' data-square="2-1"></div>
 				<div className="grid-item" data-player='p1' data-square="2-2"></div>
@@ -43,7 +43,7 @@ const Board: React.FC<BoardProps> = ({playerNumber}) => {
 				<div className="grid-item" data-player='p1' data-square="2-7"></div>
 				<div className="grid-item" data-player='p1' data-square="2-8"></div>
 				<div className="grid-item" data-player='p1'  data-square="2-9"></div>
-				<div className="asethics">D</div>
+				<Letter>D</Letter>
 				<div className="grid-item" data-player='p1' data-square="3-0"></div>
 				<div className="grid-item" data-player='p1' data-square="3-1"></div>
 				<div className="grid-item" data-player='p1' data-square="3-2"></div>
@@ -54,7 +54,7 @@ const Board: React.FC<BoardProps> = ({playerNumber}) => {
 				<div className="grid-item" data-player='p1' data-square="3-7"></div>
 				<div className="grid-item" data-player='p1' data-square="3-8"></div>
 				<div className="grid-item" data-player='p1'  data-square="3-9"></div>
-				<div className="asethics">E</div>
+				<Letter>E</Letter>
 				<div className="grid-item" data-player='p1' data-square="4-0"></div>
 				<div className="grid-item" data-player='p1' data-square="4-1"></div>
 				<div className="grid-item" data-player='p1' data-square="4-2"></div>
@@ -65,7 +65,7 @@ const Board: React.FC<BoardProps> = ({playerNumber}) => {
 				<div className="grid-item" data-player='p1' data-square="4-7"></div>
 				<div className="grid-item" data-player='p1' data-square="4-8"></div>
 				<div className="grid-item" data-player='p1'  data-square="4-9"></div>
-				<div className="asethics">F</div>
+				<Letter>F</Letter>
 				<div className="grid-item" data-player='p1' data-square="5-0"></div>
 				<div className="grid-item" data-player='p1' data-square="5-1"></div>
 				<div className="grid-item" data-player='p1' data-square="5-2"></div>
@@ -76,7 +76,7 @@ const Board: React.FC<BoardProps> = ({playerNumber}) => {
 				<div className="grid-item" data-player='p1' data-square="5-7"></div>
 				<div className="grid-item" data-player='p1' data-square="5-8"></div>
 				<div className="grid-item" data-player='p1'  data-square="5-9"></div>
-				<div className="asethics">G</div>
+				<Letter>G</Letter>
 				<div className="grid-item" data-player='p1' data-square="6-0"></div>
 				<div className="grid-item" data-player='p1' data-square="6-1"></div>
 				<div className="grid-item" data-player='p1' data-square="6-2"></div>
@@ -87,7 +87,7 @@ const Board: React.FC<BoardProps> = ({playerNumber}) => {
 				<div className="grid-item" data-player='p1' data-square="6-7"></div>
 				<div className="grid-item" data-player='p1' data-square="6-8"></div>
 				<div className="grid-item" data-player='p1'  data-square="6-9"></div>
-				<div className="asethics">H</div>
+				<Letter>H</Letter>
 				<div className="grid-item" data-player='p1' data-square="7-0"></div>
 				<div className="grid-item" data-player='p1' data-square="7-1"></div>
 				<div className="grid-item" data-player='p1' data-square="7-2"></div>
@@ -98,7 +98,7 @@ const Board: React.FC<BoardProps> = ({playerNumber}) => {
 				<div className="grid-item" data-player='p1' data-square="7-7"></div>
 				<div className="grid-item" data-player='p1' data-square="7-8"></div>
 				<div className="grid-item" data-player='p1'  data-square="7-9"></div>
-				<div className="asethics">I</div>
+				<Letter>I</Letter>
 				<div className="grid-item" data-player='p1' data-square="8-0"></div>
 				<div className="grid-item" data-player='p1' data-square="8-1"></div>
 				<div className="grid-item" data-player='p1' data-square="8-2"></div>
@@ -109,7 +109,7 @@ const Board: React.FC<BoardProps> = ({playerNumber}) => {
 				<div className="grid-item" data-player='p1' data-square="8-7"></div>
 				<div className="grid-item" data-player='p1' data-square="8-8"></div>
 				<div className="grid-item" data-player='p1'  data-square="8-9"></div>
-				<div className="asethics">J</div>
+				<Letter>J</Letter>
 				<div className="grid-item" data-player='p1' data-square="9-0"></div>
 				<div className="grid-item" data-player='p1' data-square="9-1"></div>
 				<div className="grid-item" data-player='p1' data-square="9-2"></div>
@@ -149,7 +149,9 @@ const PlayerHeader = styled.h2`
 	margin-left: 100px;
 `;
 
-const Letter = styled.div`
+const Letter = styled.p`
+	display: block;
+	margin: 0;
 	padding: 15px;
 	text-align: center;
 	font-family: 'Press Start 2P', cursive;

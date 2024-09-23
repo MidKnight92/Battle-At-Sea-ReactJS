@@ -1,3 +1,5 @@
+import { styled } from "styled-components";
+
 interface BattleReportDetailsProps {
     playerNumber: string;
     fleetCount: number;
@@ -8,7 +10,7 @@ interface BattleReportDetailsProps {
 const BattleReportDetails: React.FC<BattleReportDetailsProps> = ({playerNumber, fleetCount, hitCount, missCount}) => {
     return (
         <section>
-            <p id="p1BattleReportHeading">Player {playerNumber} </p>
+            <BattleReportPlayer>Player {playerNumber} </BattleReportPlayer>
             <p id="p1FleetRemainingStats">Fleet Remaining: {fleetCount}</p>	
             <p id="p1HitsStats">Hits: {hitCount}</p>	
             <p id="p1MissesStats">Misses: {missCount}</p>
@@ -17,3 +19,9 @@ const BattleReportDetails: React.FC<BattleReportDetailsProps> = ({playerNumber, 
 }
 
 export default BattleReportDetails;
+
+const BattleReportPlayer = styled.p`
+    text-decoration: underline;
+    margin-top: 60px;
+`;
+

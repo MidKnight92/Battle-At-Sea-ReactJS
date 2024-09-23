@@ -10,7 +10,7 @@ const Status: React.FC = () => {
     }
     return(
         <div className="Stats">
-            <h2 id="battleReport">Battle Report</h2>
+            <BattleReportHeading>Battle Report</BattleReportHeading>
                 <BattleReportDetails {...playerBattleReport}/>
                 <BattleReportDetails {...{...playerBattleReport, playerNumber: '2'}}/>
                 <StartGameButton id="startBattle" type="button">Start Battle</StartGameButton>	
@@ -19,6 +19,11 @@ const Status: React.FC = () => {
 }
 
 export default Status;
+
+const BattleReportHeading = styled.h2`
+    font-size: 20px;
+	margin-top: 100px;
+`;
 
 const StartGameButton = styled.button`
     font-size: 10px; 

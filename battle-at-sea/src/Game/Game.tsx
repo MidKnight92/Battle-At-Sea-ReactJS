@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components'
 import Board from '../Boad/Board';
-import Status from "../Status/Status";
+import Status from "../BattleReport/BattleReport";
 
 const Game: React.FC = () => {
   return (
