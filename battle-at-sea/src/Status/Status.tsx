@@ -1,21 +1,18 @@
 import { styled } from "styled-components";
+import BattleReportDetails from "../BattleReportDetails/BattleReportDetails";
 
 const Status: React.FC = () => {
+    const playerBattleReport = {
+        playerNumber: '1',
+        fleetCount: 0,
+        hitCount: 0,
+        missCount: 0
+    }
     return(
         <div className="Stats">
             <h2 id="battleReport">Battle Report</h2>
-                <section>
-                    <h6 id="p1BattleReportHeading">Player 1</h6>
-                    <h6 id="p1FleetRemainingStats">Fleet Remaining: #</h6>	
-                    <h6 id="p1HitsStats">Hits: #</h6>	
-                    <h6 id="p1MissesStats">Misses: #</h6>
-                </section>
-                <section>
-                    <h6 id="p2BattleReportHeading">Player 2</h6>
-                    <h6 id="p2FleetRemainingStats">Fleet Remaining: #</h6>	
-                    <h6 id="p2HitsStats">Hits: #</h6>	
-                    <h6 id="p2MissesStats">Misses: #</h6>
-                </section>
+                <BattleReportDetails {...playerBattleReport}/>
+                <BattleReportDetails {...{...playerBattleReport, playerNumber: '2'}}/>
                 <StartGameButton id="startBattle" type="button">Start Battle</StartGameButton>	
         </div>
     );
