@@ -1,7 +1,5 @@
-import React from "react";
-
 const Board = () => {
-    return 'hydrate';
+    return <p>board</p>;
 }
 
 export default Board;
