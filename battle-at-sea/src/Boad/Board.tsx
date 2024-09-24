@@ -7,10 +7,10 @@ interface BoardProps {
 
 const Board: React.FC<BoardProps> = ({playerNumber}) => {
     return (
-		<div className="Player-1">
+		<div>
 			<PlayerHeader>Player {playerNumber} Fleet</PlayerHeader>
 			<BattleGrid>
-				<Letter className="asethics">A</Letter>
+				<Letter>A</Letter>
 				<div className="grid-item" data-player='p1' data-square="0-0"></div>
 				<div className="grid-item" data-player='p1' data-square="0-1"></div>
 				<div className="grid-item" data-player='p1' data-square="0-2"></div>
@@ -121,16 +121,16 @@ const Board: React.FC<BoardProps> = ({playerNumber}) => {
 				<div className="grid-item" data-player='p1' data-square="9-8"></div>
 				<div className="grid-item" data-player='p1'  data-square="9-9"></div>
 				<Letter></Letter>
-				<Letter className="asethics">1</Letter>
-				<Letter className="asethics">2</Letter>
-				<Letter className="asethics">3</Letter>
-				<Letter className="asethics">4</Letter>
-				<Letter className="asethics">5</Letter>
-				<Letter className="asethics">6</Letter>
-				<Letter className="asethics">7</Letter>
-				<Letter className="asethics">8</Letter>
-				<Letter className="asethics">9</Letter>
-				<Letter className="asethics">10</Letter>
+				<Letter>1</Letter>
+				<Letter>2</Letter>
+				<Letter>3</Letter>
+				<Letter>4</Letter>
+				<Letter>5</Letter>
+				<Letter>6</Letter>
+				<Letter>7</Letter>
+				<Letter>8</Letter>
+				<Letter>9</Letter>
+				<Letter>10</Letter>
 			</BattleGrid>	
 		</div>
     );

@@ -3,8 +3,29 @@ import styled from 'styled-components';
 import {createGlobalStyle} from 'styled-components'
 import Board from '../Boad/Board';
 import Status from "../BattleReport/BattleReport";
+import Instructions from "../Instructions/Instructions";
+import fleet from "../fleet";
+import board from "../board";
 
 const Game: React.FC = () => {
+  const playersBattleReport = [
+      {
+      playerNumber: '1',
+      fleetCount: 0,
+      hitCount: 0,
+      missCount: 0,
+      fleet,
+      board,
+   },
+    {
+      playerNumber: '2',
+      fleetCount: 0,
+      hitCount: 0,
+      missCount: 0,
+      fleet,
+      board
+    }
+  ]
   return (
     <div>
       <GlobalStyles />
@@ -14,6 +35,7 @@ const Game: React.FC = () => {
         <Status />  
         <Board playerNumber="2"/>    
       </Main>
+      <Instructions />
     </div>
   );
 }

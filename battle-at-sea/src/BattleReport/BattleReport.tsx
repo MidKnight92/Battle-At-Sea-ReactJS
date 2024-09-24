@@ -39,6 +39,7 @@ const StartGameButton = styled.button`
 
     &:hover {
     background: #1C6EA4;
+    cursor: pointer;
     }
 
     &:active {
