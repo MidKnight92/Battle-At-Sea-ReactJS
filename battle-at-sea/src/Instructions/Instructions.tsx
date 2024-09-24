@@ -12,7 +12,7 @@ const Instructions: React.FC = () => {
             {isInstructionsDisplayed ?    
             (
                 <>
-                    <p>Player 1 will place their fleet (5 ships) on their respective boards followed by Player 2. Once fleet is set Player 1 will click on Players 2 grid then the players will swap turns.</p>
+                    <InstructionText>Player 1 will place their fleet (5 ships) on their respective boards followed by Player 2. Once fleet is set Player 1 will click on Players 2 grid then the players will swap turns.</InstructionText>
                     <InstructionLink onClick={handleClick}>Close Instructions</InstructionLink>
                 </>
             ):
@@ -22,6 +22,16 @@ const Instructions: React.FC = () => {
 }
 
 export default Instructions;
+
+const InstructionText = styled.p`
+	margin-top: 45px;
+	margin-left: 30px;
+	text-align: center;
+	font-size: 8px;
+	font-family: 'Press Start 2P', cursive;
+	color: white;
+	padding: 10px;
+`
 
 const InstructionLink = styled.a`
 	display: inline-block;

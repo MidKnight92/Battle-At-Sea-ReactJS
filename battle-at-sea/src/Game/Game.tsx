@@ -14,16 +14,20 @@ const Game: React.FC = () => {
       fleetCount: 0,
       hitCount: 0,
       missCount: 0,
+      opponentShipSunkCount: 0,
       fleet,
       board,
+      selectedGridItems: []
    },
     {
       playerNumber: '2',
       fleetCount: 0,
       hitCount: 0,
       missCount: 0,
+      opponentShipSunkCount: 0,
       fleet,
-      board
+      board,
+      selectedGridItems: []
     }
   ]
   return (
@@ -31,9 +35,9 @@ const Game: React.FC = () => {
       <GlobalStyles />
       <Heading>Battle-At-Sea</Heading>
       <Main>
-        <Board playerNumber="1"/>
+        <Board playersBattleReport={playersBattleReport[0]}/>
         <Status />  
-        <Board playerNumber="2"/>    
+        <Board playersBattleReport={playersBattleReport[1]}/>    
       </Main>
       <Instructions />
     </div>
