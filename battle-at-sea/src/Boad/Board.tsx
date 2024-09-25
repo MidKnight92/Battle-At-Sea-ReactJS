@@ -17,10 +17,11 @@ interface BoardProps {
 	  board: number[][];
 	  selectedGridItems: string[][];
 	};
+	isGameStarted: boolean
   }
 
 
-const Board: React.FC<BoardProps> = ({playersBattleReport}) => {
+const Board: React.FC<BoardProps> = ({playersBattleReport, isGameStarted}) => {
 	const { playerNumber } = playersBattleReport;
 	return (
 		<div>
