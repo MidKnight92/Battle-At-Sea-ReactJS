@@ -17,7 +17,7 @@ const Game: React.FC = () => {
       opponentShipSunkCount: 0,
       fleet,
       board,
-      selectedGridItems: []
+      selectedGridItems: [] as string[][]
    },
     {
       playerNumber: '2',
@@ -27,7 +27,7 @@ const Game: React.FC = () => {
       opponentShipSunkCount: 0,
       fleet,
       board,
-      selectedGridItems: []
+      selectedGridItems: [] as string[][]
     }
   ]
   return (

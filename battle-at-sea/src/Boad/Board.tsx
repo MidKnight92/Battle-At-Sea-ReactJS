@@ -2,23 +2,25 @@ import React from "react";
 import { styled } from "styled-components";
 
 interface BoardProps {
-    playerNumber: string;
-    fleetCount: number;
-    hitCount: number;
-    missCount: number;
-    opponentShipSunkCount: number;
-    fleet: {
-        typeOfShip: string;
-        length: number;
-        letter: string;
-        placed: boolean;
-    }[];
-    board: number[][];
-    selectedGridItems: [][];
-}
+	playersBattleReport: {
+	  playerNumber: string;
+	  fleetCount: number;
+	  hitCount: number;
+	  missCount: number;
+	  opponentShipSunkCount: number;
+	  fleet: {
+		typeOfShip: string;
+		length: number;
+		letter: string;
+		placed: boolean;
+	  }[];
+	  board: number[][];
+	  selectedGridItems: string[][];
+	};
+  }
 
 
-const Board: React.FC<BoardProps> = ( playersBattleReport ) => {
+const Board: React.FC<BoardProps> = ({playersBattleReport}) => {
 	const { playerNumber } = playersBattleReport;
 	return (
 		<div>
