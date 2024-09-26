@@ -39,6 +39,13 @@ const Board: React.FC<BoardProps> = ({
       <GridLetter key={letter}>{letter}</GridLetter>
     )
   );
+  
+  const setFleet = (index1: number, index2: number) => {
+	playersBattleReport.fleet.forEach( ship => (
+		!ship.placed && console.log('to be set')
+	));
+  }
+
 
   const handleGridItemClick = (
     activePlayerBoardNumber: string,
@@ -46,7 +53,12 @@ const Board: React.FC<BoardProps> = ({
     index2: number
   ): void => {
     const activePlayer = "1"; // TODO: Will be removed in future
-    activePlayer !== activePlayerBoardNumber && console.log(index1, index2);
+	const isBattling = false;
+	if (isBattling){
+		activePlayer !== activePlayerBoardNumber && console.log(index1, index2);
+	} else {
+		activePlayer === activePlayerBoardNumber && setFleet(index1, index2)
+	}
   };
 
   const gridItems = (boardNumber: string, index1: number): ReactElement[] =>

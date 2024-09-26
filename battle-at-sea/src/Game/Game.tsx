@@ -4,34 +4,29 @@ import { createGlobalStyle } from "styled-components";
 import Board from "../Boad/Board";
 import Status from "../BattleReport/BattleReport";
 import Instructions from "../Instructions/Instructions";
-import fleet from "../fleet";
-import board from "../board";
+import playerBattleReport from "../playerBattleReport";
 
 const Game: React.FC = () => {
-  const [isGameStarted, setIsGameStarted] = useState(false);
+  const [player1BattleReport, setPlayer1BattleReport] = useState({
+    ...playerBattleReport,
+    fleet: [...playerBattleReport.fleet],
+    board: [...playerBattleReport.board],
+    selectedGridItems: playerBattleReport.selectedGridItems.map(
+      (gridItem) => gridItem
+    ),
+    playerNumber: "1",
+  });
 
-  const playersBattleReport = [
-    {
-      playerNumber: "1",
-      fleetCount: 0,
-      hitCount: 0,
-      missCount: 0,
-      opponentShipSunkCount: 0,
-      fleet,
-      board,
-      selectedGridItems: [] as string[][],
-    },
-    {
-      playerNumber: "2",
-      fleetCount: 0,
-      hitCount: 0,
-      missCount: 0,
-      opponentShipSunkCount: 0,
-      fleet,
-      board,
-      selectedGridItems: [] as string[][],
-    },
-  ];
+  const [player2BattleReport, setPlayer2BattleReport] = useState({
+    ...playerBattleReport,
+    fleet: [...playerBattleReport.fleet],
+    board: [...playerBattleReport.board],
+    selectedGridItems: playerBattleReport.selectedGridItems.map(
+      (gridItem) => gridItem
+    ),
+    playerNumber: "2",
+  });
+  const [isGameStarted, setIsGameStarted] = useState(false);
 
   const handleClick = () => {
     setIsGameStarted(!isGameStarted);
@@ -43,14 +38,14 @@ const Game: React.FC = () => {
       <Heading>Battle-At-Sea</Heading>
       <Main>
         <Board
-          key={playersBattleReport[0].playerNumber}
-          playersBattleReport={playersBattleReport[0]}
+          key={player1BattleReport.playerNumber}
+          playersBattleReport={player1BattleReport}
           isGameStarted={isGameStarted}
         />
         <Status />
         <Board
-          key={playersBattleReport[1].playerNumber}
-          playersBattleReport={playersBattleReport[1]}
+          key={player2BattleReport.playerNumber}
+          playersBattleReport={player2BattleReport}
           isGameStarted={isGameStarted}
         />
       </Main>
