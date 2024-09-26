@@ -30,29 +30,46 @@ const Board: React.FC<BoardProps> = ({
 
   const gridNumbers = numbers.map(
     (number: string): ReactElement => (
-      <Letter key={`gridNumber-${number}`}>{number}</Letter>
+      <GridNumber key={`gridNumber-${number}`}>{number}</GridNumber>
     )
   );
 
-  const gridLetters = letters.map((letter: string): any => (
-    <Letter key={letter}>{letter}</Letter>
-  ));
+  const gridLetters = letters.map(
+    (letter: string): ReactElement => (
+      <GridLetter key={letter}>{letter}</GridLetter>
+    )
+  );
+
+  const handleGridItemClick = (
+    activePlayerBoardNumber: string,
+    index1: number,
+    index2: number
+  ): void => {
+    const activePlayer = "1"; // TODO: Will be removed in future
+    activePlayer !== activePlayerBoardNumber && console.log(index1, index2);
+  };
+
+  const gridItems = (boardNumber: string, index1: number): ReactElement[] =>
+    numbers.map((_, index2: number) => (
+      <GridItem
+        key={`${index1}-${index2}`}
+        onClick={() => handleGridItemClick(boardNumber, index1, index2)}
+      ></GridItem>
+    ));
 
   return (
     <div key={`div-${playerNumber}`}>
       <PlayerHeader key={`playerHeader-${playerNumber}`}>
         Player {playerNumber} Fleet
       </PlayerHeader>
-      <BattleGrid key={`p${playerNumber}-fleet-header`}>
+      <BattleGrid key={`battle-grid-${playerNumber}`}>
         {gridLetters.map((gridLetter, index1) => (
-          <>
+          <React.Fragment key={index1}>
             {gridLetter}
-            {numbers.map((_, index2: number) => (
-              <GridItem key={`${index1}-${index2}`}></GridItem>
-            ))}
-          </>
+            {gridItems(playerNumber, index1)}
+          </React.Fragment>
         ))}
-        <Letter key="blank"></Letter>
+        <EmptySpace key="blank"></EmptySpace>
         {gridNumbers}
       </BattleGrid>
     </div>
@@ -60,6 +77,8 @@ const Board: React.FC<BoardProps> = ({
 };
 
 export default Board;
+
+/*  Styles  */
 
 const BattleGrid = styled.div`
   display: grid;
@@ -91,7 +110,7 @@ const PlayerHeader = styled.h2`
   margin-left: 100px;
 `;
 
-const Letter = styled.p`
+const GridLetter = styled.p`
   display: block;
   margin: 0;
   padding: 15px;
@@ -99,3 +118,6 @@ const Letter = styled.p`
   font-family: "Press Start 2P", cursive;
   background-color: rgb(102, 102, 102);
 `;
+
+const GridNumber = GridLetter;
+const EmptySpace = GridLetter;
