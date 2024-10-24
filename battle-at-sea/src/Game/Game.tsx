@@ -1,58 +1,34 @@
-import React, { useState } from "react";
+import React, { ReactElement } from "react";
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
 import Board from "../Boad/Board";
-import Status from "../BattleReport/BattleReport";
+import BattleReport from "../BattleReport/BattleReport";
 import Instructions from "../Instructions/Instructions";
-import playerBattleReport from "../playerBattleReport";
+import useGameStore from "../store/gameStore";
 
-const Game: React.FC = () => {
-  const [player1BattleReport, setPlayer1BattleReport] = useState({
-    ...playerBattleReport,
-    fleet: [...playerBattleReport.fleet],
-    board: [...playerBattleReport.board],
-    selectedGridItems: playerBattleReport.selectedGridItems.map(
-      (gridItem) => gridItem
-    ),
-    playerNumber: "1",
-  });
-
-  const [player2BattleReport, setPlayer2BattleReport] = useState({
-    ...playerBattleReport,
-    fleet: [...playerBattleReport.fleet],
-    board: [...playerBattleReport.board],
-    selectedGridItems: playerBattleReport.selectedGridItems.map(
-      (gridItem) => gridItem
-    ),
-    playerNumber: "2",
-  });
-  const [isGameStarted, setIsGameStarted] = useState(false);
-
-  const handleClick = () => {
-    setIsGameStarted(!isGameStarted);
-  };
-
+const Game: React.FC<{}> = (): ReactElement => {
+  const isBattleStarted = useGameStore((state) => state.isBattleStarted);
+  const changeBattleState = useGameStore((state) => state.changeBattleState);
+  const reset = useGameStore((state) => state.reset);
   return (
     <div>
       <GlobalStyles />
       <Heading>Battle-At-Sea</Heading>
       <Main>
-        <Board
-          key={player1BattleReport.playerNumber}
-          playersBattleReport={player1BattleReport}
-          isGameStarted={isGameStarted}
-        />
-        <Status />
-        <Board
-          key={player2BattleReport.playerNumber}
-          playersBattleReport={player2BattleReport}
-          isGameStarted={isGameStarted}
-        />
+        <Board player="p1" />
+        <BattleReport />
+        <Board player="p2" />
       </Main>
       <ButtonContainer>
-        <StartGameButton onClick={handleClick} type="button">
-          Start Battle
-        </StartGameButton>
+        {!isBattleStarted ? (
+          <Button onClick={changeBattleState} type="button">
+            Start Battle
+          </Button>
+        ) : (
+          <Button onClick={reset} type="button">
+            Reset Battle
+          </Button>
+        )}
       </ButtonContainer>
       <Instructions />
     </div>
@@ -85,7 +61,7 @@ body {
 const ButtonContainer = styled.div`
   position: relative;
 `;
-const StartGameButton = styled.button`
+const Button = styled.button`
   display: block;
   position: fixed;
   font-size: 10px;

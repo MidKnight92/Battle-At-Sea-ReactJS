@@ -1,41 +1,27 @@
-const fleet: Fleet[] = [
-  {
-    typeOfShip: "Destroyer",
+import { Fleet, Ship } from "./app/shared/model";
+
+
+const fleet: Fleet = {
+  [Ship.Destroyer]: {
     length: 2,
-    letter: "d",
-    placed: false,
+    hitsTaken: 0,
   },
-  {
-    typeOfShip: "Cruiser",
+  [Ship.Cruiser]: {
     length: 3,
-    letter: "c",
-    placed: false,
+    hitsTaken: 0,
   },
-  {
-    typeOfShip: "Submarine",
+  [Ship.Submarine]: {
     length: 3,
-    letter: "s",
-    placed: false,
+    hitsTaken: 0,
   },
-  {
-    typeOfShip: "Battleship",
+  [Ship.Battleship]: {
     length: 4,
-    letter: "b",
-    placed: false,
+    hitsTaken: 0,
   },
-  {
-    typeOfShip: "Aircraft Carrier",
+  [Ship.Aircraft_Carrier]: {
     length: 5,
-    letter: "a",
-    placed: false,
+    hitsTaken: 0,
   },
-];
+};
 
 export default fleet;
-
-export interface Fleet {
-  typeOfShip: string;
-  length: number;
-  letter: string;
-  placed: boolean;
-}

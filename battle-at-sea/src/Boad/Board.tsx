@@ -1,87 +1,71 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import { styled } from "styled-components";
+import { IPlayer } from "../app/shared/model";
+import useGameStore from "../store/gameStore";
+import board from "../board";
 
-interface BoardProps {
-  playersBattleReport: {
-    playerNumber: string;
-    fleetCount: number;
-    hitCount: number;
-    missCount: number;
-    opponentShipSunkCount: number;
-    fleet: {
-      typeOfShip: string;
-      length: number;
-      letter: string;
-      placed: boolean;
-    }[];
-    board: number[][];
-    selectedGridItems: string[][];
-  };
-  isGameStarted: boolean;
-}
+const letterCoordinates = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+const numberCoordinates = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const shipsInFleet = 5;
 
-const Board: React.FC<BoardProps> = ({
-  playersBattleReport,
-  isGameStarted,
-}) => {
-  const { playerNumber } = playersBattleReport;
-  const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-  const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+const Board: React.FC<IPlayer> = ({ player }): ReactElement => {
+  const boardCode = player;
+  const [playerBoard, setPlayerBoard] = useState(board);
+  const [isBattling, setIsBattling] = useState(false);
+  const { isBattleStarted, activePlayer } = useGameStore();
 
-  const gridNumbers = numbers.map(
-    (number: string): ReactElement => (
+  const gridNumbers = numberCoordinates.map(
+    (number: number): ReactElement => (
       <GridNumber key={`gridNumber-${number}`}>{number}</GridNumber>
     )
   );
 
-  const gridLetters = letters.map(
+  const gridLetters = letterCoordinates.map(
     (letter: string): ReactElement => (
-      <GridLetter key={letter}>{letter}</GridLetter>
+      <GridLetter key={`gridLetter-${letter}`}>{letter}</GridLetter>
     )
   );
-  
-  const setFleet = (index1: number, index2: number) => {
-	playersBattleReport.fleet.forEach( ship => (
-		!ship.placed && console.log('to be set')
-	));
-  }
 
-
-  const handleGridItemClick = (
-    activePlayerBoardNumber: string,
-    index1: number,
-    index2: number
-  ): void => {
-    const activePlayer = "1"; // TODO: Will be removed in future
-	const isBattling = false;
-	if (isBattling){
-		activePlayer !== activePlayerBoardNumber && console.log(index1, index2);
-	} else {
-		activePlayer === activePlayerBoardNumber && setFleet(index1, index2)
-	}
+  const setFleet = (index1: number, index2: number): void => {
+    console.log(index1, index2);
+    // playersBattleReport.fleet.forEach(
+    //   (ship) =>
+    //     !ship.placed && console.log("to be set")
+    //     // check that each ship is placed at the correct length use String.fromCharCode(letter); to check that ship will fit vertically
+    // );
   };
 
-  const gridItems = (boardNumber: string, index1: number): ReactElement[] =>
-    numbers.map((_, index2: number) => (
+  const handleGridItemClick = (index1: number, index2: number): void => {
+    if (!isBattleStarted) return;
+    // console.log(playerBoard, index1, index2);
+    if (isBattling) {
+      activePlayer !== boardCode && console.log(index1, index2);
+    } else {
+      activePlayer === boardCode && setFleet(index1, index2);
+    }
+  };
+
+  const cells = (index1: number): ReactElement[] =>
+    numberCoordinates.map((_, index2: number) => (
       <GridItem
         key={`${index1}-${index2}`}
-        onClick={() => handleGridItemClick(boardNumber, index1, index2)}
+        onClick={() => handleGridItemClick(index1, index2)}
       ></GridItem>
     ));
 
   return (
-    <div key={`div-${playerNumber}`}>
-      <PlayerHeader key={`playerHeader-${playerNumber}`}>
-        Player {playerNumber} Fleet
+    <div>
+      <PlayerHeader>
+        Player {boardCode === "p1" ? "One" : "Two"} Board
       </PlayerHeader>
-      <BattleGrid key={`battle-grid-${playerNumber}`}>
+      <BattleGrid>
         {gridLetters.map((gridLetter, index1) => (
-          <React.Fragment key={index1}>
+          <React.Fragment key={`${gridLetter}-${index1}`}>
             {gridLetter}
-            {gridItems(playerNumber, index1)}
+            {cells(index1)}
           </React.Fragment>
         ))}
-        <EmptySpace key="blank"></EmptySpace>
+        <EmptySpace />
         {gridNumbers}
       </BattleGrid>
     </div>

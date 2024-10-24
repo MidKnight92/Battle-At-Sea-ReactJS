@@ -1,26 +1,19 @@
 import { styled } from "styled-components";
 import BattleReportDetails from "../BattleReportDetails/BattleReportDetails";
 
-const Status: React.FC = () => {
-    const playerBattleReport = {
-        playerNumber: '1',
-        fleetCount: 0,
-        hitCount: 0,
-        missCount: 0
-    }
-    return(
-        <div className="Stats">
-            <BattleReportHeading>Battle Report</BattleReportHeading>
-                <BattleReportDetails {...playerBattleReport}/>
-                <BattleReportDetails {...{...playerBattleReport, playerNumber: '2'}}/>
+const BattleReport: React.FC = () => {
+  return (
+    <div>
+      <BattleReportHeading>Battle Report</BattleReportHeading>
+      <BattleReportDetails player="p1" />
+      <BattleReportDetails player="p2" />
+    </div>
+  );
+};
 
-        </div>
-    );
-}
-
-export default Status;
+export default BattleReport;
 
 const BattleReportHeading = styled.h2`
-    font-size: 20px;
-	margin-top: 100px;
+  font-size: 20px;
+  margin-top: 100px;
 `;
