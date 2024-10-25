@@ -1,68 +1,105 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useRef, useState } from "react";
 import { styled } from "styled-components";
-import { IPlayer } from "../app/shared/model";
+import { GameStatus, IPlayer, Player, Ship } from "../app/shared/model";
 import useGameStore from "../store/gameStore";
-import board from "../board";
+import initialBoard from "../board";
+import fleet from "../fleet";
 
-const letterCoordinates = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-const numberCoordinates = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const shipsInFleet = 5;
+const LETTER_COORDINATES: string[] = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+];
+const NUMBER_COORDINATES: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const SHIP_KEYS: string[] = Object.keys(fleet);
 
-const Board: React.FC<IPlayer> = ({ player }): ReactElement => {
-  const boardCode = player;
-  const [playerBoard, setPlayerBoard] = useState(board);
-  const [isBattling, setIsBattling] = useState(false);
-  const { isBattleStarted, activePlayer } = useGameStore();
+const Board: React.FC<IPlayer> = ({ playerCode }): ReactElement => {
+  const assignedPlayerBoard: Player = playerCode;
+  const [board, setBoard] = useState(initialBoard);
+  const shipIndex = useRef(0);
+  const { activePlayer, changeActivePlayer, gameStatus, changeGameStatus } =
+    useGameStore();
 
-  const gridNumbers = numberCoordinates.map(
+  const gridNumbers = NUMBER_COORDINATES.map(
     (number: number): ReactElement => (
       <GridNumber key={`gridNumber-${number}`}>{number}</GridNumber>
     )
   );
 
-  const gridLetters = letterCoordinates.map(
+  const gridLetters = LETTER_COORDINATES.map(
     (letter: string): ReactElement => (
       <GridLetter key={`gridLetter-${letter}`}>{letter}</GridLetter>
     )
   );
 
-  const setFleet = (index1: number, index2: number): void => {
-    console.log(index1, index2);
-    // playersBattleReport.fleet.forEach(
-    //   (ship) =>
-    //     !ship.placed && console.log("to be set")
-    //     // check that each ship is placed at the correct length use String.fromCharCode(letter); to check that ship will fit vertically
-    // );
+  const addShipToGrid = (
+    selectedRow: number,
+    selectedColumn: number,
+    ship: Ship
+  ): void => {
+    const updatedBoard = board.map((row, rowIndex) => {
+      if (rowIndex === selectedRow){
+        return row.map((column, columnIndex) => {
+          if (columnIndex === selectedColumn){
+            const newRow = [...row];
+            return newRow[columnIndex] = ship;
+          }else {
+            return column;
+          }
+        })
+      } else {
+        return row;
+      }
+    }); 
+   setBoard(updatedBoard);
   };
 
-  const handleGridItemClick = (index1: number, index2: number): void => {
-    if (!isBattleStarted) return;
-    // console.log(playerBoard, index1, index2);
-    if (isBattling) {
-      activePlayer !== boardCode && console.log(index1, index2);
-    } else {
-      activePlayer === boardCode && setFleet(index1, index2);
+  const deployFleet = (rowIndex: number, columnIndex: number): void => {
+    console.log("deploying");
+    addShipToGrid(rowIndex, columnIndex, "b" as Ship)
+   
+  };
+
+  const battling = (rowIndex: number, columnIndex: number): void => {
+    console.log(rowIndex, columnIndex);
+  };
+
+  const handleGridItemClick = (rowIndex: number, columnIndex: number): void => {
+    switch (gameStatus) {
+      case GameStatus.BATTLING:
+        activePlayer !== assignedPlayerBoard && battling(rowIndex, columnIndex);
+        break;
+      case GameStatus.DEPLOYING:
+        activePlayer === assignedPlayerBoard &&
+          deployFleet(rowIndex, columnIndex);
     }
   };
 
-  const cells = (index1: number): ReactElement[] =>
-    numberCoordinates.map((_, index2: number) => (
+  const renderCells = (rowIndex: number): ReactElement[] =>
+    NUMBER_COORDINATES.map((_, columnIndex: number) => (
       <GridItem
-        key={`${index1}-${index2}`}
-        onClick={() => handleGridItemClick(index1, index2)}
+        key={`${rowIndex}-${columnIndex}`}
+        onClick={() => handleGridItemClick(rowIndex, columnIndex)}
       ></GridItem>
     ));
 
   return (
     <div>
       <PlayerHeader>
-        Player {boardCode === "p1" ? "One" : "Two"} Board
+        Player {assignedPlayerBoard === Player.PLAYER_ONE ? "One" : "Two"} Board
       </PlayerHeader>
       <BattleGrid>
-        {gridLetters.map((gridLetter, index1) => (
-          <React.Fragment key={`${gridLetter}-${index1}`}>
+        {gridLetters.map((gridLetter, rowIndex) => (
+          <React.Fragment key={`${gridLetter}-${rowIndex}`}>
             {gridLetter}
-            {cells(index1)}
+            {renderCells(rowIndex)}
           </React.Fragment>
         ))}
         <EmptySpace />

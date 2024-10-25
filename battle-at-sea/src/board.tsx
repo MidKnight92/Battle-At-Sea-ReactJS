@@ -1,6 +1,6 @@
 import { Board } from "./app/shared/model";
 
-const board: Board = [
+const initialBoard: Board = [
   ["", "", "", "", "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", "", "", ""],
   ["", "", "", "", "", "", "", "", "", ""],
@@ -13,4 +13,4 @@ const board: Board = [
   ["", "", "", "", "", "", "", "", "", ""],
 ];
 
-export default board;
+export default initialBoard;

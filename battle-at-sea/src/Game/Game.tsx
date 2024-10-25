@@ -5,23 +5,25 @@ import Board from "../Boad/Board";
 import BattleReport from "../BattleReport/BattleReport";
 import Instructions from "../Instructions/Instructions";
 import useGameStore from "../store/gameStore";
+import { GameStatus, Player } from "../app/shared/model";
+import fleet from "../fleet";
 
-const Game: React.FC<{}> = (): ReactElement => {
-  const isBattleStarted = useGameStore((state) => state.isBattleStarted);
-  const changeBattleState = useGameStore((state) => state.changeBattleState);
+const Game: React.FC = (): ReactElement => {
+  const gameStatus = useGameStore((state) => state.gameStatus);
+  const changeGameStatus = useGameStore((state) => state.changeGameStatus);
   const reset = useGameStore((state) => state.reset);
   return (
     <div>
       <GlobalStyles />
       <Heading>Battle-At-Sea</Heading>
       <Main>
-        <Board player="p1" />
+        <Board playerCode={Player.PLAYER_ONE}/>
         <BattleReport />
-        <Board player="p2" />
+        <Board playerCode={Player.PLAYER_TWO}/>
       </Main>
       <ButtonContainer>
-        {!isBattleStarted ? (
-          <Button onClick={changeBattleState} type="button">
+        {gameStatus === GameStatus.NOT_STARTED ? (
+          <Button onClick={() => changeGameStatus(GameStatus.DEPLOYING)} type="button">
             Start Battle
           </Button>
         ) : (
