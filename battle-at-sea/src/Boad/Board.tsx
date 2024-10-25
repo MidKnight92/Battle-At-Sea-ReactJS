@@ -44,27 +44,28 @@ const Board: React.FC<IPlayer> = ({ playerCode }): ReactElement => {
     selectedColumn: number,
     ship: Ship
   ): void => {
-    const updatedBoard = board.map((row, rowIndex) => {
-      if (rowIndex === selectedRow){
-        return row.map((column, columnIndex) => {
-          if (columnIndex === selectedColumn){
-            const newRow = [...row];
-            return newRow[columnIndex] = ship;
-          }else {
-            return column;
-          }
-        })
-      } else {
-        return row;
-      }
-    }); 
-   setBoard(updatedBoard);
+    if (!board[selectedRow][selectedColumn]) {
+      const updatedBoard = board.map((row, rowIndex) => {
+        if (rowIndex === selectedRow) {
+          return row.map((column, columnIndex) => {
+            if (columnIndex === selectedColumn) {
+              const newRow = [...row];
+              return (newRow[columnIndex] = ship);
+            } else {
+              return column;
+            }
+          });
+        } else {
+          return row;
+        }
+      });
+      setBoard(updatedBoard);
+    }
   };
 
   const deployFleet = (rowIndex: number, columnIndex: number): void => {
     console.log("deploying");
-    addShipToGrid(rowIndex, columnIndex, "b" as Ship)
-   
+    addShipToGrid(rowIndex, columnIndex, "B" as Ship);
   };
 
   const battling = (rowIndex: number, columnIndex: number): void => {

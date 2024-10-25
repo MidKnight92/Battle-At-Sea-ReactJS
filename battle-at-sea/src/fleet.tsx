@@ -1,29 +1,28 @@
-import {  Fleet, Ship, } from "./app/shared/model";
-
+import { Fleet, Ship } from "./app/shared/model";
 
 const fleet: Fleet = {
   [Ship.Destroyer]: {
-    length: 2,
+    length: 0,
     hitsTaken: 0,
     piecesPlaced: 0,
   },
   [Ship.Cruiser]: {
-    length: 3,
+    length: 0,
     hitsTaken: 0,
     piecesPlaced: 0,
   },
   [Ship.Submarine]: {
-    length: 3,
+    length: 0,
     hitsTaken: 0,
-    piecesPlaced: 0
+    piecesPlaced: 0,
   },
   [Ship.Battleship]: {
-    length: 4,
+    length: 0,
     hitsTaken: 0,
     piecesPlaced: 0,
   },
   [Ship.Aircraft_Carrier]: {
-    length: 5,
+    length: 0,
     hitsTaken: 0,
     piecesPlaced: 0,
   },

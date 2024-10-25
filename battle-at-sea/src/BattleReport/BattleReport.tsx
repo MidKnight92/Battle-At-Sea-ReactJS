@@ -4,13 +4,13 @@ import { useState } from "react";
 import { Player } from "../app/shared/model";
 
 const BattleReport: React.FC = () => {
-    // const [startTime, setStartTime] = useState(null);
-    // const [now, setNow] = useState(null);
+  // const [startTime, setStartTime] = useState(null);
+  // const [now, setNow] = useState(null);
 
   return (
     <div>
       <BattleReportHeading>Battle Report</BattleReportHeading>
-      {/* <BattleTime></BattleTime> */}
+      {/* <BattleTime></BattleTime>  TODO: implement game timer when game is started*/} 
       <BattleReportDetails playerCode={Player.PLAYER_ONE} />
       <BattleReportDetails playerCode={Player.PLAYER_TWO} />
     </div>
@@ -24,5 +24,4 @@ const BattleReportHeading = styled.h2`
   margin-top: 100px;
 `;
 
-const BattleTime = styled.p`
-`
+const BattleTime = styled.p``;

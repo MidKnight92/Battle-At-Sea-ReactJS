@@ -6,7 +6,6 @@ import BattleReport from "../BattleReport/BattleReport";
 import Instructions from "../Instructions/Instructions";
 import useGameStore from "../store/gameStore";
 import { GameStatus, Player } from "../app/shared/model";
-import fleet from "../fleet";
 
 const Game: React.FC = (): ReactElement => {
   const gameStatus = useGameStore((state) => state.gameStatus);
