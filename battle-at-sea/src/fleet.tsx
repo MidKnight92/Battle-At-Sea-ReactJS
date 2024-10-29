@@ -1,6 +1,6 @@
 import { Fleet, Ship } from "./app/shared/model";
 
-const fleet: Fleet = {
+const initialFleet: Fleet = {
   [Ship.Destroyer]: {
     length: 0,
     hitsTaken: 0,
@@ -28,4 +28,4 @@ const fleet: Fleet = {
   },
 };
 
-export default fleet;
+export default initialFleet;

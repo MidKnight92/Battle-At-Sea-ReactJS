@@ -1,9 +1,9 @@
 import React, { ReactElement, useRef, useState } from "react";
 import { styled } from "styled-components";
-import { GameStatus, IPlayer, Player, Ship } from "../app/shared/model";
+import { EMPTY_STRING, GameStatus, IPlayer, Player, Ship, UnoccupiedSpace } from "../app/shared/model";
 import useGameStore from "../store/gameStore";
 import initialBoard from "../board";
-import fleet from "../fleet";
+import initialFleet from "../fleet";
 
 const LETTER_COORDINATES: string[] = [
   "A",
@@ -18,11 +18,12 @@ const LETTER_COORDINATES: string[] = [
   "J",
 ];
 const NUMBER_COORDINATES: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const SHIP_KEYS: string[] = Object.keys(fleet);
+const SHIP_KEYS: string[] = Object.keys(initialFleet);
 
 const Board: React.FC<IPlayer> = ({ playerCode }): ReactElement => {
   const assignedPlayerBoard: Player = playerCode;
   const [board, setBoard] = useState(initialBoard);
+  const [fleet, setFleet] = useState(initialFleet);
   const shipIndex = useRef(0);
   const { activePlayer, changeActivePlayer, gameStatus, changeGameStatus } =
     useGameStore();
@@ -38,6 +39,16 @@ const Board: React.FC<IPlayer> = ({ playerCode }): ReactElement => {
       <GridLetter key={`gridLetter-${letter}`}>{letter}</GridLetter>
     )
   );
+
+  const checkValidity = (rowIndex: number, columnIndex: number, p0: Ship): boolean => {
+    if (board[rowIndex][columnIndex] === EMPTY_STRING) {
+      console.log(true)
+      return true;
+    } else {
+      console.log(false)
+      return false;
+    }
+  };
 
   const addShipToGrid = (
     selectedRow: number,
@@ -65,7 +76,8 @@ const Board: React.FC<IPlayer> = ({ playerCode }): ReactElement => {
 
   const deployFleet = (rowIndex: number, columnIndex: number): void => {
     console.log("deploying");
-    addShipToGrid(rowIndex, columnIndex, "B" as Ship);
+    if (checkValidity(rowIndex, columnIndex, SHIP_KEYS[shipIndex.current] as Ship)) console.log('good')
+    // addShipToGrid(rowIndex, columnIndex, SHIP_KEYS[shipIndex.current] as Ship);
   };
 
   const battling = (rowIndex: number, columnIndex: number): void => {

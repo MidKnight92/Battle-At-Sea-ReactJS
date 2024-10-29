@@ -36,9 +36,10 @@ export type Fleet = Record<Ship, ShipStats>;
 
 
 // BOARD
-export type EmptySpace = "";
+export const EMPTY_STRING = "";
+export type UnoccupiedSpace = "";
 export type SunkenShip = Lowercase<Ship>;
-export type BoardPiece = Ship | SunkenShip | EmptySpace;
+export type BoardPiece = Ship | SunkenShip | UnoccupiedSpace;
 export type Board = BoardPiece[][];
 
 
