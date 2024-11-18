@@ -16,13 +16,16 @@ const Game: React.FC = (): ReactElement => {
       <GlobalStyles />
       <Heading>Battle-At-Sea</Heading>
       <Main>
-        <Board playerCode={Player.PLAYER_ONE}/>
+        <Board playerCode={Player.PLAYER_ONE} />
         <BattleReport />
-        <Board playerCode={Player.PLAYER_TWO}/>
+        <Board playerCode={Player.PLAYER_TWO} />
       </Main>
       <ButtonContainer>
         {gameStatus === GameStatus.NOT_STARTED ? (
-          <Button onClick={() => changeGameStatus(GameStatus.DEPLOYING)} type="button">
+          <Button
+            onClick={() => changeGameStatus(GameStatus.DEPLOYING_DESTROYER)}
+            type="button"
+          >
             Start Battle
           </Button>
         ) : (

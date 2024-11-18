@@ -7,54 +7,37 @@ export interface IPlayer {
   playerCode: Player;
 }
 
-export type PlayerStats = {
+export interface PlayerStats {
   remainingShips: number;
   hits: number;
   misses: number;
-};
-
-export type PlayerType = Player;
-
+}
 
 // FLEET (SHIPS)
-
 export enum Ship {
-  Destroyer = "D",
-  Cruiser = "C",
-  Submarine = "S",
-  Battleship = "B",
-  Aircraft_Carrier = "A",
+  Destroyer = "Destroyer",
+  Cruiser = "Cruiser",
+  Submarine = "Submarine",
+  Battleship = "Battleship",
+  Aircraft_Carrier = "Aircraft_Carrier",
 }
 
-interface ShipStats {
+export interface ShipStats {
+  typeOfShip: Ship;
   length: number;
-  hitsTaken: number;
-  piecesPlaced: number;
+  location: null[] | number[];
+  isDeployed: boolean;
+  sunk: boolean;
 }
-
-export type Fleet = Record<Ship, ShipStats>;
-
-
-// BOARD
-export const EMPTY_STRING = "";
-export type UnoccupiedSpace = "";
-export type SunkenShip = Lowercase<Ship>;
-export type BoardPiece = Ship | SunkenShip | UnoccupiedSpace;
-export type Board = BoardPiece[][];
-
 
 // GAME
 export enum GameStatus {
   NOT_STARTED = "NOT_STARTED",
-  DEPLOYING = "DEPLOYING",
+  DEPLOYING_DESTROYER = "DEPLOYING_DESTROYER",
+  DEPLOYING_CRUISER = "DEPLOYING_CRUISER",
+  DEPLOYING_SUBMARINE = "DEPLOYING_SUBMARINE",
+  DEPLOYING_BATTLESHIP = "DEPLOYING_BATTLESHIP",
+  DEPLOYING_AIRCRAFT_CARRIER = "DEPLOYING_AIRCRAFT_CARRIER",
   BATTLING = "BATTLING",
   OVER = "OVER",
 }
-
-export type GameStatusType = GameStatus;
-
-
-
-
-
-

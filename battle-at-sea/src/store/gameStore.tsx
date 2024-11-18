@@ -40,11 +40,12 @@ const useGameStore = create<State & Actions>((set, get) => ({
           ? Player.PLAYER_TWO
           : Player.PLAYER_ONE,
     })),
+
   changeGameStatus: (newStatus: GameStatus) =>
-    set((state: { gameStatus: GameStatus; activePlayer: Player }) => ({
-      gameStatus: (state.gameStatus = newStatus),
-      activePlayer: (state.activePlayer = Player.PLAYER_ONE),
+    set((state: { gameStatus: GameStatus }) => ({
+      gameStatus: (state.gameStatus = newStatus)
     })),
+    
   reset: () => {
     set(initialState);
   },
