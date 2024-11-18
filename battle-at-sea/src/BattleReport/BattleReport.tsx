@@ -22,7 +22,7 @@ const BattleReport: React.FC = () => {
   };
 
   const manageInterval = (): void => {
-    if (gameStatus === GameStatus.DEPLOYING) {
+    if (gameStatus === GameStatus.DEPLOYING_DESTROYER) {
       startInterval();
     } else if (
       gameStatus === GameStatus.NOT_STARTED ||
@@ -30,6 +30,16 @@ const BattleReport: React.FC = () => {
     ) {
       clearExistingInterval();
     }
+  };
+
+  const getTime = (): string => {
+    if (
+      gameStatus === GameStatus.NOT_STARTED ||
+      gameStatus === GameStatus.OVER
+    ) {
+      return "Time: 00";
+    }
+    return count < 10 ? `Time: 0${count}` : `Time: ${count}`;
   };
 
   useEffect(() => {
@@ -40,15 +50,7 @@ const BattleReport: React.FC = () => {
   return (
     <Container>
       <BattleReportHeading>Battle Report</BattleReportHeading>
-      <BattleTime>
-        {`Time: ${
-          gameStatus !== GameStatus.NOT_STARTED
-            ? count < 10
-              ? `0${count}`
-              : count
-            : "00"
-        }`}
-      </BattleTime>
+      <BattleTime>{getTime()}</BattleTime>
       <BattleReportDetails playerCode={Player.PLAYER_ONE} />
       <BattleReportDetails playerCode={Player.PLAYER_TWO} />
     </Container>

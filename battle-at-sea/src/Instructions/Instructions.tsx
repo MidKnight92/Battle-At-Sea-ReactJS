@@ -15,7 +15,7 @@ const deploymentInstructions: Map<GameStatus, string> = new Map([
 const Instructions: React.FC = (): ReactElement => {
   const [isInstructionsDisplayed, setInstrucionsDisplayed] = useState(false);
   const { gameStatus } = useGameStore();
-  const getFullGameInstructions = () => (
+  const getFullGameInstructions = (): ReactElement => (
     <>
       {isInstructionsDisplayed && (
         <InstructionText>{generalInstructions[0]}</InstructionText>
