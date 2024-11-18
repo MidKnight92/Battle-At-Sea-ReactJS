@@ -1,19 +1,37 @@
 import React, { ReactElement, useState } from "react";
 import { styled } from "styled-components";
+import useGameStore from "../store/gameStore";
+import { GameStatus, Ship } from "../app/shared/model";
+import initialFleet from "../fleet";
+
+
+const deploymentInstructions = initialFleet.map(
+  ({ length, typeOfShip }) =>
+    `Select ${length} adjacent cells in either the vertical or horizontal direction to place the ${typeOfShip === Ship.Aircraft_Carrier ? 'Aircraft Carrier': typeOfShip }.`
+);
+
+const generalInstructions = [
+  "Players will deploy their fleet by selecting cells on their respective boards. There are 5 ships in each fleet. Players must select adjacent cells in either the vertical or horizontal direction to the required length of each respective ship in order for the ship to be deployed. Nonadjacent cell selections will be ignored during deployment. Once players have finished deploying their fleet the battle will begin. Players will take turns selecting individual cells on their opponents board. Eack selection will result in either a hit or miss. The cell will turn either green (miss) or red (hit). All results will be reflected on the Battle Report. Player must sink their opponents entire fleet to win. Player 1 starts the deploymet and battling stage.",
+  "Select a cell on your opponent's grid. Red indicates a hit and green indicates a miss",
+];
 
 const Instructions: React.FC = (): ReactElement => {
   const [isInstructionsDisplayed, setInstrucionsDisplayed] = useState(false);
-  const instructions = (
-    <InstructionText>
-      Player 1 will place their fleet (5 ships) on their respective boards
-      followed by Player 2. Once fleet is set Player 1 will click on Players 2
-      grid then the players will swap turns.
-    </InstructionText>
-  );
-  return (
+  const { gameStatus } = useGameStore();
+  const shipIndex = 0; // Add to store
+
+  return gameStatus === GameStatus.DEPLOYING ? (
+    <InstructionText>{deploymentInstructions[shipIndex]}</InstructionText>
+  ) : gameStatus === GameStatus.BATTLING ? (
+    <InstructionText>{generalInstructions[1]}</InstructionText>
+  ) : (
     <>
-      {isInstructionsDisplayed && { instructions }}
-      <InstructionLink onClick={() => setInstrucionsDisplayed(!isInstructionsDisplayed)}>
+      {isInstructionsDisplayed && (
+        <InstructionText>{generalInstructions[0]}</InstructionText>
+      )}
+      <InstructionLink
+        onClick={() => setInstrucionsDisplayed(!isInstructionsDisplayed)}
+      >
         {isInstructionsDisplayed ? "Close Instructions" : "Instructions"}
       </InstructionLink>
     </>
