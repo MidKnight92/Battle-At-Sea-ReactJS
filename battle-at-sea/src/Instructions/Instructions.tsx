@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from "react";
 import { styled } from "styled-components";
 import useGameStore from "../store/gameStore";
 import { GameStatus } from "../app/shared/model";
-import { generalInstructions, shipInstructions } from "./instructionText";
+import { battlingInstructions, generalInstructions, shipInstructions } from "./instructionText";
 
 const deploymentInstructions: Map<GameStatus, string> = new Map([
   [GameStatus.DEPLOYING_DESTROYER, shipInstructions[0]],
@@ -18,7 +18,7 @@ const Instructions: React.FC = (): ReactElement => {
   const getFullGameInstructions = (): ReactElement => (
     <>
       {isInstructionsDisplayed && (
-        <InstructionText>{generalInstructions[0]}</InstructionText>
+        <InstructionText>{generalInstructions}</InstructionText>
       )}
       <InstructionLink
         onClick={() => setInstrucionsDisplayed(!isInstructionsDisplayed)}
@@ -29,7 +29,7 @@ const Instructions: React.FC = (): ReactElement => {
   );
 
   return gameStatus === GameStatus.BATTLING ? (
-    <InstructionText>{generalInstructions[1]}</InstructionText>
+    <InstructionText>{battlingInstructions}</InstructionText>
   ) : gameStatus === GameStatus.NOT_STARTED ||
     gameStatus === GameStatus.OVER ? (
     getFullGameInstructions()
