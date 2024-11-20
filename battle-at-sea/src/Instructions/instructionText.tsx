@@ -2,7 +2,7 @@ import initialFleet from "../fleet";
 
 export const shipInstructions: string[] = initialFleet.map(
   ({ length, typeOfShip }) =>
-    `Select ${length} adjacent cells in either the vertical or horizontal direction to place the ${typeOfShip}.`
+    `Select ${length} adjacent cells in either the vertical or horizontal direction to place the ${typeOfShip} on your assigned board.`
 );
 
 export const generalInstructions: string =

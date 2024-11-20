@@ -24,10 +24,11 @@ export enum Ship {
 
 export interface ShipStats {
   typeOfShip: Ship;
-  length: number;
-  location: null[] | number[];
-  isDeployed: boolean;
-  sunk: boolean;
+  shipLength: number;
+  hits: number;
+  numberOfCellsSelected: number;
+  // isDeployed: boolean;
+  // sunk: boolean;
 }
 
 // GAME
@@ -41,3 +42,14 @@ export enum GameStatus {
   BATTLING = "BATTLING",
   OVER = "OVER",
 }
+
+export enum Direction {
+  HORIZONTAL_POSITIVE = "HORIZONTAL_POSITIVE",
+  HORIZONTAL_NEGATIVE = "HORIZONTAL_NEGATIVE",
+  VERTICAL_POSITIVE = "VERTICAL_POSITIVE",
+  VERTICAL_NEGATIVE = "VERTICAL_NEGATIVE"
+}
+
+export const TOTAL_NUMBER_OF_SHIPS = 4;
+
+export const TOTAL_CELLS = 9;
