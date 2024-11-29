@@ -45,12 +45,12 @@ const BattleReport: React.FC = () => {
   useEffect(() => {
     manageInterval();
     return () => clearExistingInterval();
-  }, [gameStatus]);
+  }, [gameStatus, manageInterval]);
 
   return (
     <Container>
       <BattleReportHeading>Battle Report</BattleReportHeading>
-      <BattleTime>{getTime()}</BattleTime>
+      <p>{getTime()}</p>
       <BattleReportDetails playerCode={Player.PLAYER_ONE} />
       <BattleReportDetails playerCode={Player.PLAYER_TWO} />
     </Container>
@@ -60,14 +60,13 @@ const BattleReport: React.FC = () => {
 export default BattleReport;
 
 const Container = styled.div`
+  margin-top: 5%;
   text-align: center;
+  font-family: "Press Start 2P", cursive;
+  font-size: .75em;
 `;
 
 const BattleReportHeading = styled.h2`
-  font-size: 20px;
+  font-size: 1em;
   margin-top: 40px;
-`;
-
-const BattleTime = styled.p`
-  font-family: "Press Start 2P", cursive;
 `;

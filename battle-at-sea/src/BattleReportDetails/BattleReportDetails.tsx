@@ -26,6 +26,8 @@ export default BattleReportDetails;
 /*  Styles  */
 
 const BattleReportPlayer = styled.p`
+  font-family: "Press Start 2P", cursive;
+
   text-decoration: underline;
   margin-top: 60px;
 `;

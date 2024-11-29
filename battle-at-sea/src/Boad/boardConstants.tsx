@@ -1,4 +1,4 @@
-import { Ship } from "../app/shared/model";
+import { Ship, ShipStats } from "../app/shared/model";
 
 export const LETTER_COORDINATES: string[] = [
     "A",
@@ -15,7 +15,7 @@ export const LETTER_COORDINATES: string[] = [
   
   export const NUMBER_COORDINATES: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  export const initalBoard: null[][] | {Ship: Ship, isHit: boolean}[][] = [
+  export const initalBoard: null[][] | ShipStats[][] = [
     [null,null,null,null,null,null,null,null,null,null],
     [null,null,null,null,null,null,null,null,null,null],
     [null,null,null,null,null,null,null,null,null,null],

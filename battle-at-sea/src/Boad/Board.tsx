@@ -1,10 +1,10 @@
 import React, { ReactElement, useRef, useState } from "react";
 import { styled } from "styled-components";
 import {
-  Direction,
   GameStatus,
   IPlayer,
   Player,
+  ShipStats,
   TOTAL_NUMBER_OF_SHIPS,
 } from "../app/shared/model";
 import useGameStore from "../store/gameStore";
@@ -13,9 +13,12 @@ import {
   NUMBER_COORDINATES,
   LETTER_COORDINATES,
   initalBoard,
-  LAST_CELL,
-  FIRST_CELL,
 } from "./boardConstants";
+import {
+  isCellAvailable,
+  isCellSelectionValid,
+  isPlayerDeployingLastShip,
+} from "./helperFunctions";
 
 const shipMap: Map<GameStatus, number> = new Map([
   [GameStatus.DEPLOYING_DESTROYER, 0],
@@ -25,33 +28,27 @@ const shipMap: Map<GameStatus, number> = new Map([
   [GameStatus.DEPLOYING_AIRCRAFT_CARRIER, 4],
 ]);
 
-const gridNumbers = NUMBER_COORDINATES.map(
-  (number: number): ReactElement => (
-    <GridNumber key={number}>{number}</GridNumber>
-  )
-);
-
-const gridLetters = LETTER_COORDINATES.map(
-  (letter: string): ReactElement => (
-    <GridLetter key={letter}>{letter}</GridLetter>
-  )
-);
-
 const Board: React.FC<IPlayer> = ({ playerCode }): ReactElement => {
   const assignedPlayerBoard: Player = playerCode;
-  const [board, setBoard] = useState(initalBoard);
-  const [fleet, setFleet] = useState(initialFleet);
-  const shipIndexRef = useRef(0);
-  const deployedShipCount = shipIndexRef.current;
+  const boardRef = useRef<null[][] | ShipStats[][]>(initalBoard);
+  const board = boardRef.current;
+  const [fleet, setFleet] = useState<ShipStats[]>(initialFleet);
+  const shipIndexRef = useRef<number>(0);
+  const currentShip = shipIndexRef.current;
   const { activePlayer, changeActivePlayer, gameStatus, changeGameStatus } =
     useGameStore();
 
-  const isPlayerDeployingLastShip = (): boolean =>
-    deployedShipCount === fleet.length;
-
   const isShipLengthMeet = (): boolean => {
-    const { numberOfCellsSelected, shipLength } = fleet[deployedShipCount];
+    const { numberOfCellsSelected, shipLength } = fleet[currentShip];
     return shipLength === numberOfCellsSelected;
+  };
+
+  const readyToBeginBattle = (): boolean => {
+    return (
+      activePlayer === Player.PLAYER_TWO &&
+      isPlayerDeployingLastShip(currentShip, TOTAL_NUMBER_OF_SHIPS) &&
+      isShipLengthMeet()
+    );
   };
 
   const startBattle = (): void => {
@@ -59,120 +56,31 @@ const Board: React.FC<IPlayer> = ({ playerCode }): ReactElement => {
     changeGameStatus(GameStatus.BATTLING);
   };
 
-  const isCellAvailable = (rowIndex: number, columnIndex: number): boolean =>
-    board[rowIndex][columnIndex] === null;
-
-  const isInbound = (
-    rowIndex: number,
-    columnIndex: number,
-    shipLength: number,
-    direction: string
-  ): boolean => {
-    switch (direction) {
-      case Direction.HORIZONTAL_POSITIVE:
-        return columnIndex + shipLength - 1 <= LAST_CELL;
-      case Direction.HORIZONTAL_NEGATIVE:
-        return columnIndex - shipLength - 1 >= FIRST_CELL;
-      case Direction.VERTICAL_POSITIVE:
-        return rowIndex - shipLength - 1 >= FIRST_CELL;
-      case Direction.VERTICAL_NEGATIVE:
-        return rowIndex + shipLength - 1 <= LAST_CELL;
-      default:
-        return false;
-    }
-  };
-
-  const traverseAxis = (
-    rowIndex: number,
-    columnIndex: number,
-    shipLength: number,
-    direction: Direction
-  ): boolean => {
-    for (let i = 1; i < shipLength; i++) {
-      const newRowIndex =
-        direction === Direction.VERTICAL_POSITIVE
-          ? rowIndex - i
-          : rowIndex + (direction === Direction.VERTICAL_NEGATIVE ? i : 0);
-      const newColIndex =
-        direction === Direction.HORIZONTAL_POSITIVE
-          ? columnIndex + i
-          : columnIndex - (direction === Direction.HORIZONTAL_NEGATIVE ? i : 0);
-
-      if (!isCellAvailable(newRowIndex, newColIndex)) return false;
-    }
-
-    return true;
-  };
-
-  const areCellsAvailable = (
-    rowIndex: number,
-    columnIndex: number,
-    shipLength: number,
-    direction: Direction
-  ): boolean => {
-    return (
-      isInbound(rowIndex, columnIndex, shipLength, direction) &&
-      traverseAxis(rowIndex, columnIndex, shipLength, direction)
-    );
-  };
-
-  const areAdjoiningCellsAvaliable = (
-    rowIndex: number,
-    columnIndex: number
-  ): boolean => {
-    const shipLength: number = fleet[deployedShipCount].shipLength - 1;
-    return (
-      areCellsAvailable(
-        rowIndex,
-        columnIndex,
-        shipLength,
-        Direction.HORIZONTAL_POSITIVE
-      ) ||
-      areCellsAvailable(
-        rowIndex,
-        columnIndex,
-        shipLength,
-        Direction.HORIZONTAL_NEGATIVE
-      ) ||
-      areCellsAvailable(
-        rowIndex,
-        columnIndex,
-        shipLength,
-        Direction.VERTICAL_POSITIVE
-      ) ||
-      areCellsAvailable(
-        rowIndex,
-        columnIndex,
-        shipLength,
-        Direction.VERTICAL_NEGATIVE
-      )
-    );
-  };
-
-  const isCellSelectionValid = (rowIndex: number, columnIndex: number) =>
-    isCellAvailable(rowIndex, columnIndex) &&
-    areAdjoiningCellsAvaliable(rowIndex, columnIndex);
-
-  const readyToBeginBattle = (): boolean => {
-    return (
-      activePlayer === Player.PLAYER_TWO &&
-      isPlayerDeployingLastShip() &&
-      isShipLengthMeet()
-    );
-  };
-
   const setShip = (rowIndex: number, columnIndex: number) => {
+    board[rowIndex][columnIndex] = fleet[currentShip];
+    setFleet([
+      ...fleet,
+      {
+        ...fleet[currentShip],
+        numberOfCellsSelected: fleet[currentShip].numberOfCellsSelected + 1,
+      },
+    ]);
     readyToBeginBattle() && startBattle();
   };
 
-  const deployFleet = (rowIndex: number, columnIndex: number): void => {
-    isCellSelectionValid(rowIndex, columnIndex) &&
+  const deployFleet = (
+    board: null[][] | ShipStats[][],
+    rowIndex: number,
+    columnIndex: number
+  ): void => {
+    const shipLength: number = fleet[currentShip].shipLength - 1;
+
+    isCellSelectionValid(board, rowIndex, columnIndex, shipLength) &&
       setShip(rowIndex, columnIndex);
   };
 
-  const battling = (rowIndex: number, columnIndex: number): void => {
-    console.log(rowIndex, columnIndex);
-  };
+  const battling = (rowIndex: number, columnIndex: number): boolean =>
+    !isCellAvailable(board, rowIndex, columnIndex);
 
   const handleCellClick = (rowIndex: number, columnIndex: number): void => {
     switch (gameStatus) {
@@ -184,7 +92,7 @@ const Board: React.FC<IPlayer> = ({ playerCode }): ReactElement => {
         break;
       default:
         activePlayer === assignedPlayerBoard &&
-          deployFleet(rowIndex, columnIndex);
+          deployFleet(board, rowIndex, columnIndex);
     }
   };
 
@@ -201,6 +109,18 @@ const Board: React.FC<IPlayer> = ({ playerCode }): ReactElement => {
         onClick={() => handleCellClick(rowIndex, columnIndex)}
       ></GridItem>
     ));
+
+  const gridNumbers = NUMBER_COORDINATES.map(
+    (number: number): ReactElement => (
+      <GridNumber key={number}>{number}</GridNumber>
+    )
+  );
+
+  const gridLetters = LETTER_COORDINATES.map(
+    (letter: string): ReactElement => (
+      <GridLetter key={letter}>{letter}</GridLetter>
+    )
+  );
 
   return (
     <div>
@@ -253,6 +173,8 @@ const GridItem = styled.button`
 
 const PlayerHeader = styled.h2`
   margin-left: 100px;
+  font-family: "Press Start 2P", cursive;
+  font-size: 100%;
 `;
 
 const GridLetter = styled.p`
