@@ -22,13 +22,12 @@ export enum Ship {
   Aircraft_Carrier = "Aircraft_Carrier",
 }
 
-export interface ShipStats {
+export interface ShipStatus {
+  id: number;
   typeOfShip: Ship;
   shipLength: number;
   hits: number;
   numberOfCellsSelected: number;
-  // isDeployed: boolean;
-  // sunk: boolean;
 }
 
 // GAME
@@ -53,3 +52,11 @@ export enum Direction {
 export const TOTAL_NUMBER_OF_SHIPS = 4;
 
 export const TOTAL_CELLS = 9;
+
+export const shipMap: Map<GameStatus, number> = new Map([
+  [GameStatus.DEPLOYING_DESTROYER, 0],
+  [GameStatus.DEPLOYING_CRUISER, 1],
+  [GameStatus.DEPLOYING_SUBMARINE, 2],
+  [GameStatus.DEPLOYING_BATTLESHIP, 3],
+  [GameStatus.DEPLOYING_AIRCRAFT_CARRIER, 4],
+]);

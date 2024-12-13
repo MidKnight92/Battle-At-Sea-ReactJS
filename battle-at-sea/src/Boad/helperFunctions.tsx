@@ -1,4 +1,4 @@
-import { ShipStats, Direction } from "../app/shared/model";
+import { ShipStatus, Direction } from "../app/shared/model";
 import { LAST_CELL, FIRST_CELL } from "./boardConstants";
 
 const isInbound = (
@@ -22,7 +22,7 @@ const isInbound = (
 };
 
 const traverseAxis = (
-  board: null[][] | ShipStats[][],
+  board: null[][] | ShipStatus[][],
   rowIndex: number,
   columnIndex: number,
   shipLength: number,
@@ -45,7 +45,7 @@ const traverseAxis = (
 };
 
 const areCellsAvailable = (
-  board: null[][] | ShipStats[][],
+  board: null[][] | ShipStatus[][],
   rowIndex: number,
   columnIndex: number,
   shipLength: number,
@@ -58,7 +58,7 @@ const areCellsAvailable = (
 };
 
 const areAdjoiningCellsAvaliable = (
-  board: null[][] | ShipStats[][],
+  board: null[][] | ShipStatus[][],
   rowIndex: number,
   columnIndex: number,
   shipLength: number
@@ -97,9 +97,9 @@ const areAdjoiningCellsAvaliable = (
 
 export const isPlayerDeployingLastShip = (currentShip: number, fleetLength: number ): boolean => currentShip === fleetLength;
 
-export const isCellAvailable = (board: null[][] | ShipStats[][], rowIndex: number, columnIndex: number): boolean =>
+export const isCellAvailable = (board: null[][] | ShipStatus[][], rowIndex: number, columnIndex: number): boolean =>
   board[rowIndex][columnIndex] === null;
 
-export const isCellSelectionValid = (board: null[][] | ShipStats[][], rowIndex: number, columnIndex: number, shipLength: number) =>
+export const isCellSelectionValid = (board: null[][] | ShipStatus[][], rowIndex: number, columnIndex: number, shipLength: number) =>
   isCellAvailable(board, rowIndex, columnIndex) &&
   areAdjoiningCellsAvaliable(board, rowIndex, columnIndex, shipLength);

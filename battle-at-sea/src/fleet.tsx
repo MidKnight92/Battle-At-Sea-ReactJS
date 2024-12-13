@@ -1,46 +1,42 @@
-import { Ship, ShipStats } from "./app/shared/model";
+import { Ship, ShipStatus } from "./app/shared/model";
 
-
-const initialFleet: ShipStats[] = [
+// numberOfCellsSelected tracks the placement progress on the users board
+const initialFleet: ShipStatus[] = [
   {
+    id: 1,
     typeOfShip: Ship.Destroyer,
     shipLength: 2,
     hits: 0,
     numberOfCellsSelected: 0,
-    // isDeployed: false,
-    // sunk: false
   },
   {
+    id:2,
     typeOfShip: Ship.Cruiser,
     shipLength: 3,
     hits: 0,
     numberOfCellsSelected: 0,
-    // isDeployed: false,
-    // sunk: false
   },
   {
+    id: 3,
     typeOfShip: Ship.Submarine,
     shipLength: 3,
     hits: 0,
     numberOfCellsSelected: 0,
-    // isDeployed: false,
-    // sunk: false
   },
   {
+    id:4,
     typeOfShip: Ship.Battleship,
     shipLength: 4,
     hits: 0,
     numberOfCellsSelected: 0,
-    // isDeployed: false,
-    // sunk: false
   },
   {
+    id: 5,
     typeOfShip: Ship.Aircraft_Carrier,
     shipLength: 5,
     hits: 0,
     numberOfCellsSelected: 0,
-    // isDeployed: false,
-    // sunk: false
-  },
+  }
 ];
+
 export default initialFleet;
