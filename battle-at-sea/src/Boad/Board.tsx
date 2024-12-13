@@ -21,7 +21,6 @@ import {
   isCellSelectionValid,
   isPlayerDeployingLastShip,
 } from "./helperFunctions";
-import DisplayCells from "./DisplayCells";
 
 const Board: React.FC<IPlayer> = ({ playerCode }): ReactElement => {
   const assignedPlayerBoard: Player = playerCode;
@@ -91,39 +90,38 @@ const Board: React.FC<IPlayer> = ({ playerCode }): ReactElement => {
     // }
   };
 
-  const getPlayerBoardHeader = (): string => {
-    const player: string =
-      assignedPlayerBoard === Player.PLAYER_ONE ? "One" : "Two";
-    return `Player ${player} Board`;
-  };
-
-  const renderCells = (): ReactElement[][] =>
-    initalBoard.map((row: any[], rowIndex: number) => {
-      return row.map((__, columnIndex: number) => (
-        <GridItem
-          key={`${rowIndex}-${columnIndex}`}
-          $gridColumn={columnIndex}
-          $gridRow={rowIndex}
-          onClick={() => handleCellClick(rowIndex, columnIndex)}
-        ></GridItem>
-      ));
-    });
-
   return (
     <div>
+      {/* Display Board Header */}
       <PlayerHeader>
-        {gameStatus === GameStatus.OVER ? "GAME OVER" : getPlayerBoardHeader()}
+        {gameStatus === GameStatus.OVER ? "GAME OVER" : assignedPlayerBoard === Player.PLAYER_ONE ? "Player One Board" : "Player Two Board"}
       </PlayerHeader>
       <BattleGrid>
+
+        {/* Display Letter Coordinates */}
         {LETTER_COORDINATES.map((letter: string, rowIndex: number) => (
           <LetterCell key={letter} $gridRow={rowIndex}>
             {letter}
           </LetterCell>
         ))}
-        {renderCells()}
+
+        {/* Clickable Cells */}
+        {initalBoard.map((row: any[], rowIndex: number) => {
+          return row.map((__, columnIndex: number) => (
+            <GridItem
+              key={`${rowIndex}-${columnIndex}`}
+              $gridColumn={columnIndex}
+              $gridRow={rowIndex}
+              onClick={() => handleCellClick(rowIndex, columnIndex)}
+            ></GridItem>
+          ));
+        })}
+
+        {/* Display Number Coordinates */}
         {NUMBER_COORDINATES.map((number: number) => (
           <NumberCell key={number}>{number}</NumberCell>
         ))}
+        
         <EmptySpace />
       </BattleGrid>
     </div>
@@ -132,8 +130,8 @@ const Board: React.FC<IPlayer> = ({ playerCode }): ReactElement => {
 
 export default Board;
 
-/*  Styles  */
 
+/*  Styles  */
 const BattleGrid = styled.div`
   display: grid;
   grid-template-columns: auto repeat(10, auto);

@@ -10,7 +10,7 @@ const initialFleet: ShipStatus[] = [
     numberOfCellsSelected: 0,
   },
   {
-    id:2,
+    id: 2,
     typeOfShip: Ship.Cruiser,
     shipLength: 3,
     hits: 0,
@@ -24,7 +24,7 @@ const initialFleet: ShipStatus[] = [
     numberOfCellsSelected: 0,
   },
   {
-    id:4,
+    id: 4,
     typeOfShip: Ship.Battleship,
     shipLength: 4,
     hits: 0,
@@ -36,7 +36,7 @@ const initialFleet: ShipStatus[] = [
     shipLength: 5,
     hits: 0,
     numberOfCellsSelected: 0,
-  }
+  },
 ];
 
 export default initialFleet;

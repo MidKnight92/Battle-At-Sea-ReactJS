@@ -17,23 +17,23 @@ const Game: React.FC = (): ReactElement => {
       <Heading>Battle-At-Sea</Heading>
       <Main>
         <Board playerCode={Player.PLAYER_ONE} />
-        <BattleReport />
+        <div>
+          <BattleReport />
+          {gameStatus === GameStatus.NOT_STARTED ? (
+            <Button
+              onClick={() => changeGameStatus(GameStatus.DEPLOYING_DESTROYER)}
+              type="button"
+            >
+              Start Battle
+            </Button>
+          ) : (
+            <Button onClick={reset} type="button">
+              Reset Battle
+            </Button>
+          )}
+        </div>
         <Board playerCode={Player.PLAYER_TWO} />
       </Main>
-      <ButtonContainer>
-        {gameStatus === GameStatus.NOT_STARTED ? (
-          <Button
-            onClick={() => changeGameStatus(GameStatus.DEPLOYING_DESTROYER)}
-            type="button"
-          >
-            Start Battle
-          </Button>
-        ) : (
-          <Button onClick={reset} type="button">
-            Reset Battle
-          </Button>
-        )}
-      </ButtonContainer>
       <Instructions />
     </div>
   );
@@ -62,15 +62,13 @@ body {
 	background-color: rgb(69,69,69);
 }`;
 
-const ButtonContainer = styled.div`
-  position: relative;
-`;
 const Button = styled.button`
-  display: block;
-  position: fixed;
+  diplay: relative;
   font-size: 10px;
   line-height: 10px;
   padding: 12px;
+  height: 40px;
+  width: 100%;
   font-family: "Press Start 2P", cursive;
   background-image: linear-gradient(
     to right,
@@ -80,8 +78,7 @@ const Button = styled.button`
   );
   box-shadow: rgb(0, 0, 0) 5px 5px 25px 5px;
   border: 1px solid rgb(28, 110, 164);
-  margin-left: 45%;
-  margin-top: -5%;
+  margin: 100px auto 0 auto;
 
   &:hover {
     background: #1c6ea4;
