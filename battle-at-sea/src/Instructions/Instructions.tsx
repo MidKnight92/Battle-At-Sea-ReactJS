@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import { styled } from "styled-components";
 import useGameStore from "../store/gameStore";
-import { GameStatus, Player } from "../app/shared/model";
+import { GameStatus } from "../app/shared/model";
 import initialFleet from "../fleet";
 
 const Instructions: React.FC = (): ReactElement => {

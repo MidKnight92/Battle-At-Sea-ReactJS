@@ -51,8 +51,6 @@ export enum Direction {
 
 export const TOTAL_NUMBER_OF_SHIPS = 4;
 
-// export const TOTAL_CELLS = 9;
-
 export const shipMap: Map<GameStatus, number> = new Map([
   [GameStatus.DEPLOYING_DESTROYER, 0],
   [GameStatus.DEPLOYING_CRUISER, 1],
