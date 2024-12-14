@@ -22,8 +22,8 @@ import {
   isPlayerDeployingLastShip,
 } from "./helperFunctions";
 
-const Board: React.FC<IPlayer> = ({ playerCode }): ReactElement => {
-  const assignedPlayerBoard: Player = playerCode;
+const Board: React.FC<IPlayer> = ({ player }): ReactElement => {
+  const assignedPlayerBoard: Player = player;
   const boardRef = useRef<Cell[][]>(initalBoard);
   const board = boardRef.current;
   const [fleet, setFleet] = useState<ShipStatus[]>(initialFleet);
@@ -94,7 +94,7 @@ const Board: React.FC<IPlayer> = ({ playerCode }): ReactElement => {
     <div>
       {/* Display Board Header */}
       <PlayerHeader>
-        {gameStatus === GameStatus.OVER ? "GAME OVER" : assignedPlayerBoard === Player.PLAYER_ONE ? "Player One Board" : "Player Two Board"}
+        {gameStatus === GameStatus.OVER ? "GAME OVER" : `${player} Board`}
       </PlayerHeader>
       <BattleGrid>
 
@@ -121,7 +121,7 @@ const Board: React.FC<IPlayer> = ({ playerCode }): ReactElement => {
         {NUMBER_COORDINATES.map((number: number) => (
           <NumberCell key={number}>{number}</NumberCell>
         ))}
-        
+
         <EmptySpace />
       </BattleGrid>
     </div>

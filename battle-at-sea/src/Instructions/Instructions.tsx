@@ -10,7 +10,7 @@ const Instructions: React.FC = (): ReactElement => {
 
   const shipInstructions: string[] = initialFleet.map(
     ({ shipLength, typeOfShip, numberOfCellsSelected }) =>
-      `Player ${activePlayer === Player.PLAYER_ONE ? "One" : "Two"} select ${
+      `${activePlayer} select ${
         shipLength - numberOfCellsSelected
       } adjacent cells in either the vertical or horizontal direction to place the ${typeOfShip} on your assigned board.`
   );

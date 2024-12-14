@@ -16,7 +16,7 @@ const Game: React.FC = (): ReactElement => {
       <GlobalStyles />
       <Heading>Battle-At-Sea</Heading>
       <Main>
-        <Board playerCode={Player.PLAYER_ONE} />
+        <Board player={Player.PLAYER_ONE} />
         <div>
           <BattleReport />
           {gameStatus === GameStatus.NOT_STARTED ? (
@@ -32,7 +32,7 @@ const Game: React.FC = (): ReactElement => {
             </Button>
           )}
         </div>
-        <Board playerCode={Player.PLAYER_TWO} />
+        <Board player={Player.PLAYER_TWO} />
       </Main>
       <Instructions />
     </div>

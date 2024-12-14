@@ -51,8 +51,8 @@ const BattleReport: React.FC = () => {
     <Container>
       <BattleReportHeading>Battle Report</BattleReportHeading>
       <p>{getTime()}</p>
-      <BattleReportDetails playerCode={Player.PLAYER_ONE} />
-      <BattleReportDetails playerCode={Player.PLAYER_TWO} />
+      <BattleReportDetails player={Player.PLAYER_ONE} />
+      <BattleReportDetails player={Player.PLAYER_TWO} />
     </Container>
   );
 };

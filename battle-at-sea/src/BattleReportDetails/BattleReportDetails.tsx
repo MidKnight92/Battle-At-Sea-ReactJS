@@ -1,18 +1,18 @@
 import { styled } from "styled-components";
-import { IPlayer, Player } from "../app/shared/model";
+import { IPlayer } from "../app/shared/model";
 import useGameStore from "../store/gameStore";
 
-const BattleReportDetails: React.FC<IPlayer> = ({ playerCode }) => {
+const BattleReportDetails: React.FC<IPlayer> = ({ player }) => {
   const remainingShips: number = useGameStore(
-    (state) => state[playerCode].remainingShips
+    (state) => state[player].remainingShips
   );
-  const hits: number = useGameStore((state) => state[playerCode].hits);
-  const misses: number = useGameStore((state) => state[playerCode].misses);
+  const hits: number = useGameStore((state) => state[player].hits);
+  const misses: number = useGameStore((state) => state[player].misses);
 
   return (
     <section>
       <BattleReportPlayer>
-        Player {playerCode === Player.PLAYER_ONE ? "One" : "Two"}
+        {player}
       </BattleReportPlayer>
       <p>Fleet Remaining: {remainingShips}</p>
       <p>Hits: {hits}</p>
